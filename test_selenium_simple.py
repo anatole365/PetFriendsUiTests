@@ -15,29 +15,24 @@ def test_show_my_pets():
     # Нажимаю на кнопку "Мои питомцы"
     WebDriverWait(pytest.driver, 10).until(
         EC.presence_of_element_located((By.XPATH, '//a[contains(text(), "Мои питомцы")]'))
-    )
-    pytest.driver.find_element(By.XPATH, '//a[contains(text(), "Мои питомцы")]').click()
+    ).click()
 
     # Собираю инфу по именам, фото, породам и возростам питомцев
-    WebDriverWait(pytest.driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/td[1]'))
+    names = WebDriverWait(pytest.driver, 10).until(
+        EC.presence_of_all_elements_located((By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/td[1]'))
     )
-    names = pytest.driver.find_elements(By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/td[1]')
 
-    WebDriverWait(pytest.driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/td[2]'))
+    species = WebDriverWait(pytest.driver, 10).until(
+        EC.presence_of_all_elements_located((By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/td[2]'))
     )
-    species = pytest.driver.find_elements(By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/td[2]')
 
-    WebDriverWait(pytest.driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/td[3]'))
+    ages = WebDriverWait(pytest.driver, 10).until(
+        EC.presence_of_all_elements_located((By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/td[3]'))
     )
-    ages = pytest.driver.find_elements(By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/td[3]')
 
-    WebDriverWait(pytest.driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/th/img'))
+    images = WebDriverWait(pytest.driver, 10).until(
+        EC.presence_of_all_elements_located((By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/th/img'))
     )
-    images = pytest.driver.find_elements(By.XPATH, '//*[@id="all_my_pets"]/table/tbody/tr/th/img')
 
     # Вывожу количество питомцев из статистики пользователя
     pets_amount = int(pytest.driver.find_element(By.XPATH, '/html/body/div[1]/div/div[1]').text.split()[2])
